@@ -54,7 +54,7 @@ The project follows a layered architecture:
    http://localhost:8080
 
 
-**Future Enhancements**
+## Future Enhancements
 - Database-backed onboarding storage
 - Authentication and authorization
 - Validation enhancements
