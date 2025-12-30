@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Timesheet</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="card shadow p-4">
+        <h2 class="text-center mb-4">
+            Add Timesheet for
+            <span th:text="${employee.firstName + ' ' + employee.lastName}"></span>
+        </h2>
+
+        <form th:action="@{'/employees/' + ${employee.id} + '/timesheets'}" method="post">
+            <div class="mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" id="date" name="date" class="form-control" th:value="${timesheet.date}" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="hours" class="form-label">Hours</label>
+                <input type="number" step="0.1" id="hours" name="hours" class="form-control" th:value="${timesheet.hours}" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" name="description" class="form-control" rows="3" th:text="${timesheet.description}"></textarea>
+            </div>
+
+            <!-- Hidden fields for default workflow -->
+            <input type="hidden" name="status" value="PENDING" />
+            <input type="hidden" name="managerComments" value="" />
+
+            <div class="d-flex justify-content-between">
+                <a th:href="@{'/employees/' + ${employee.id} + '/timesheets'}" class="btn btn-outline-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Save Timesheet</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

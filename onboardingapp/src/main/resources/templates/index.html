@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee Onboarding</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="card shadow p-4">
+        <h2 class="text-center mb-4">Employee Onboarding Form</h2>
+
+        <form th:action="@{/submit}" th:object="${employee}" method="post" novalidate>
+
+            <!-- First Name -->
+            <div class="mb-3">
+                <label for="firstName">First Name</label>
+                <input type="text"
+                       id="firstName"
+                       th:field="*{firstName}"
+                       class="form-control"
+                       pattern="^[A-Za-z]{2,50}$"
+                       title="First name should contain only letters (2-50 characters)"
+                       required>
+                <div class="invalid-feedback">
+                    Please enter a valid first name (letters only, 2-50 characters).
+                </div>
+            </div>
+
+            <!-- Last Name -->
+            <div class="mb-3">
+                <label for="lastName">Last Name</label>
+                <input type="text"
+                       id="lastName"
+                       th:field="*{lastName}"
+                       class="form-control"
+                       pattern="^[A-Za-z]{2,50}$"
+                       title="Last name should contain only letters (2-50 characters)"
+                       required>
+                <div class="invalid-feedback">
+                    Please enter a valid last name (letters only, 2-50 characters).
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="email">Email</label>
+                <input type="email"
+                       id="email"
+                       th:field="*{email}"
+                       class="form-control"
+                       title="Please enter a valid email address"
+                       required>
+                <div class="invalid-feedback">
+                    Please enter a valid email address.
+                </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="mb-3">
+                <label for="phone">Phone</label>
+                <input type="text"
+                       id="phone"
+                       th:field="*{phone}"
+                       class="form-control"
+                       pattern="^[0-9]{10}$"
+                       maxlength="10"
+                       title="Phone number must be exactly 10 digits"
+                       required>
+                <div class="invalid-feedback">
+                    Please enter a valid 10-digit phone number.
+                </div>
+            </div>
+
+            <!-- Department -->
+            <div class="mb-3">
+                <label for="department">Department</label>
+                <input type="text"
+                       id="department"
+                       th:field="*{department}"
+                       class="form-control"
+                       pattern="^[A-Za-z0-9 ]{2,50}$"
+                       title="Department name should be 2-50 characters (letters, numbers, or spaces)"
+                       required>
+                <div class="invalid-feedback">
+                    Please enter a valid department name (letters/numbers, 2-50 characters).
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Submit</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <a href="/employees" class="btn btn-outline-secondary">View All Employees</a>
+        </div>
+
+        <div th:if="${message}" class="alert alert-success text-center mt-3" th:text="${message}"></div>
+    </div>
+</div>
+
+<!-- Bootstrap Validation Script -->
+<script>
+    (() => {
+        'use strict';
+        const forms = document.querySelectorAll('form');
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>
+
+</body>
+</html>
